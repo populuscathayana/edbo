@@ -1,4 +1,4 @@
-# edbo
+# edbo()
 
 Experimental Design via Bayesian Optimization: *edbo* is a practical implementation of Bayesian optimization for chemical synthesis.
 
