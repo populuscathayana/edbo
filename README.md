@@ -1,36 +1,36 @@
-# edbo()
-
-Experimental Design via Bayesian Optimization: *edbo* is a practical implementation of Bayesian optimization for chemical synthesis.
-
-**Reference:** Shields, Benjamin J.; Stevens, Jason; Li, Jun; Parasram, Marvin; Damani, Farhan, Janey, Jacob; Adams, Ryan P.; Doyle, Abigail G. "Bayesian Reaction Optimization as A Tool for Chemical Synthesis" Manuscript Accepted.
-
-**Documentation:** https://b-shields.github.io/edbo/index.html
-
-## Installation
-
-(0) Create anaconda environment
-
-```
-conda create --name edbo python=3.7.5
-```
-
-(1) Install rdkit, Mordred, and PyTorch
-
-```
+```bash
+conda create -n edbo python==3.8
 conda activate edbo
-conda install -c rdkit rdkit
-conda install -c rdkit -c mordred-descriptor mordred
-conda install -c pytorch pytorch=1.3.1
-```
-
-(2) Install EDBO
-
-```
+conda install -c conda-forge pip
+pip install rdkit
+pip install mordred
+conda install pytorch=1.10.0 -c pytorch
 pip install edbo
-```
-
-### Running Notebooks
-
-```
 conda install jupyterlab
 ```
+
+这个 4 年前的上古环境...这个是我改进后的配置方案了
+
+```bash
+git clone https://github.com/b-shields/edbo.git
+```
+
+存在版本问题，需要降级
+
+
+主要就修改下 random 变为固定的手动指定，看过了，在 doc 里没写，需要阅读源码。还好源码结构还算清楚。
+
+bro.py(Class BO)-->Class Init(.init_scheme)
+
+主要修改内容：
+
+修改 BO 中的参数，加入了 results 参数，为指定的一个 DataFrame，当然也可以是原内容的切片，并把 init_method 修改为 ’external‘
+
+省略 bo.init_sample()
+(删除之后所有的 seed)
+
+定义一个新的函数，simulate_ext()，用来指定针对 external 的 simulate
+
+
+
+修改了哪些部分见 git 记录
